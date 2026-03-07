@@ -102,17 +102,6 @@ int		check_str(char *characters_read)
 }
 
 
-void	print_tetri(t_tetri *t){
-
-	int i;
-
-	i = 0;
-	while (i < 4){
-		printf("y: %d x: %d\n", t->y[i], t->x[i]);
-		i++;
-	}
-}
-
 int		check_tetri(char **map, t_tetri *tetri, int x, int y, int size)
 {
 	int i;
@@ -124,9 +113,6 @@ int		check_tetri(char **map, t_tetri *tetri, int x, int y, int size)
 	t_y = 0;
 	i = 0;
 	j = 0;
-//	print_tetri(tetri);
-//	printf("In Check Tetri\nsize: %d\n", size);
-//	printf("Y Passed: %d\nX Passed: %d\n", y, x);
 	while (j < 4) {
 			
 		t_x = tetri->x[i];
@@ -139,15 +125,12 @@ int		check_tetri(char **map, t_tetri *tetri, int x, int y, int size)
 			return (0);
 		}
 		else if (map[y + t_y][x + t_x] == '.' && map[y + t_y][x + t_x]) {
-//			printf("Valid Spot!\n");
 			i++;
 		}
-
-		if (i == 4){
-//			printf("Returning 1\n");
-			return (1);
-		}
 		j++;		
+	}
+	if (i == 4) {
+		return (1);
 	}
 	return (0);
 }
