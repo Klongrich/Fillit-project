@@ -15,32 +15,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-void	xy_tetri(t_tetri **tetri, int x, int y)
-{
-	int	pos_x;
-	int pos_y;
-	int i;
-
-	i = 0;
-	pos_x = 100;
-	pos_y = 100;
-	while (i < 4)
-	{
-		if ((*tetri)->x[i] < pos_x)
-			pos_x = (*tetri)->x[i];
-		if ((*tetri)->y[i] < pos_y)
-			pos_y = (*tetri)->y[i];
-		i++;
-	}
-	i--;
-	while (i >= 0)
-	{
-		(*tetri)->x[i] = (*tetri)->x[i] - pos_x + x;
-		(*tetri)->y[i] = (*tetri)->y[i] - pos_y + y;
-		i--;
-	}
-}
-
 char	**algo(char **tetri_map, t_tetri *tetri, int size)
 {
 	int		x;
@@ -54,11 +28,8 @@ char	**algo(char **tetri_map, t_tetri *tetri, int size)
 	while (y < size)
 	{
 		x = 0;
-	//	printf("y in algo: %d\n", y);
-	//	printf("size in algo: %d\n", size);
 		while (x < size)
 		{
-			xy_tetri(&tetri, 0, 0);
 			if (check_tetri(tetri_map, tetri, x ,y, size)) {
 				if((map = algo(insert_tetri(tetri_map, tetri, y, x),
 						tetri->next, size))) {

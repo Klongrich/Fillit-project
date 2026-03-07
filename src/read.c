@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include "fillit.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int			count_tetriminos(char *str)
 {
@@ -49,6 +50,34 @@ void	convert_then_store_xy_coordinates(t_tetri **tmp, char *trimmed_validated_ch
 		}
 		i++;
 	}
+	
+}
+
+void	place_tetri_to_top_left(t_tetri **tetri) {
+
+	int pos_x;
+	int pos_y;
+	int i;
+
+	i = 0;
+	pos_x = 100;
+	pos_y = 100;
+
+
+	while (i < 4) {
+		if ((*tetri)->x[i] < pos_x)
+			pos_x = (*tetri)->x[i];
+		if ((*tetri)->y[i] < pos_y)
+			pos_y = (*tetri)->y[i];
+		i++;
+	}
+	i--;
+	while (i >= 0)
+	{
+		(*tetri)->x[i] = (*tetri)->x[i] - pos_x;
+		(*tetri)->y[i] = (*tetri)->y[i] - pos_y;
+		i--;
+	}	
 }
 
 t_tetri		*extract_tetriminos(char *vaildated_characters_read)
@@ -71,6 +100,7 @@ t_tetri		*extract_tetriminos(char *vaildated_characters_read)
 		convert_then_store_xy_coordinates(&tmp, ft_strsub(vaildated_characters_read, 0 + tetrimino_start, 20));
 		if (!(tmp->next = (t_tetri *)malloc(sizeof(t_tetri))))
 			return (NULL);
+		place_tetri_to_top_left(&tmp);
 		tmp = tmp->next;
 		amount_of_tetriminos--;
 		tetrimino_character++;
