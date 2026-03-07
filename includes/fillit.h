@@ -23,7 +23,7 @@ typedef struct		s_tetri
 
 int					count_tetri(char *str);
 void				set_tetri(t_tetri **tmp, char *str);
-t_tetri				*stock_tetri(char *str);
+t_tetri				*extract_tetriminos(char *vaildated_characters_read);
 char				*stock_str(int fd);
 void				xy_tetri(t_tetri **tetri, int x, int y);
 char				**algo(char **tetri_map, t_tetri *tetri, int size);
@@ -32,10 +32,10 @@ char				**tetri_map_new(char **map, int size);
 char				**tetri_map_dot(char **map, int size);
 void				print_map(char **map);
 char				**remove_tetri(char **map, t_tetri *tetri, int size);
-char				**insert_tetri(char **map, t_tetri *tetri, int size);
+char				**insert_tetri(char **map, t_tetri *tetri, int y, int x);
 int					check_link(char *stock, int j);
 int					count_valid_char(char *stock, int j);
 int					check_str(char *stock);
-int					check_tetri(char **map, t_tetri *tetri, int size);
+int					check_tetri(char **map, t_tetri *tetri, int x, int y, int size);
 
 #endif

@@ -13,6 +13,7 @@
 #include "fillit.h"
 #include <stdlib.h>
 #include "libft.h"
+#include <stdio.h>
 
 void	xy_tetri(t_tetri **tetri, int x, int y)
 {
@@ -48,20 +49,24 @@ char	**algo(char **tetri_map, t_tetri *tetri, int size)
 
 	if (tetri->next == NULL)
 		return (tetri_map);
-	map = NULL;
-	y = 0;
+	map = tetri_map;
+ 	y = 0;
 	while (y < size)
 	{
 		x = 0;
+	//	printf("y in algo: %d\n", y);
+	//	printf("size in algo: %d\n", size);
 		while (x < size)
 		{
-			xy_tetri(&tetri, x, y);
-			if (check_tetri(tetri_map, tetri, size))
-				map = algo(insert_tetri(tetri_map, tetri, size),
-						tetri->next, size);
-			if (map)
-				return (map);
-			tetri_map = remove_tetri(tetri_map, tetri, size);
+			xy_tetri(&tetri, 0, 0);
+			if (check_tetri(tetri_map, tetri, x ,y, size)) {
+				if((map = algo(insert_tetri(tetri_map, tetri, y, x),
+						tetri->next, size))) {
+					return (map);
+				} else {
+				 	tetri_map = remove_tetri(tetri_map, tetri, size);
+				}
+			}
 			x++;
 		}
 		y++;
