@@ -76,27 +76,33 @@ char	**remove_tetri(char **map, t_tetri *tetri, int size)
 	return (map);
 }
 
-char	**insert_tetri(char **map, t_tetri *tetri, int size)
+char	**insert_tetri(char **map, t_tetri *tetri, int y, int x)
 {
-	int x;
-	int y;
+	//int x;
+	//int y;
 	int i;
 
 	i = 0;
-	y = 0;
-	while (y < size)
-	{
-		x = 0;
-		while (x < size)
-		{
-			if (tetri->y[i] == y && tetri->x[i] == x)
-			{
-				map[y][x] = tetri->c;
-				i++;
-			}
-			x++;
-		}
-		y++;
+	//y = 0;
+	while (i < 4) {
+		map[y + tetri->y[i]][x + tetri->x[i]] = tetri->c; 
+		i++;	
 	}
+
+	
+	//while (y < size)
+	//{
+	//	x = 0;
+	//	while (x < size)
+	//	{
+	//		if (tetri->y[i] == y && tetri->x[i] == x)
+	//		{
+	//			map[y][x] = tetri->c;
+	//			i++;
+	//		}
+	//		x++;
+	//	}
+	//	y++;
+	//}
 	return (map);
 }
