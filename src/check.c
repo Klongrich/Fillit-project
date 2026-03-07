@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "fillit.h"
+#include <stdio.h>
 
 int		validate_tetrimino(char *characters_read, int tetrimino_start)
 {
@@ -100,29 +101,53 @@ int		check_str(char *characters_read)
 	return (1);
 }
 
-int		check_tetri(char **map, t_tetri *tetri, int size)
-{
+
+void	print_tetri(t_tetri *t){
+
 	int i;
-	int x;
-	int y;
 
 	i = 0;
-	y = 0;
-	while (y < size)
-	{
-		x = 0;
-		while (x < size)
-		{
-			if (tetri->y[i] < size && tetri->x[i] < size &&
-				map[tetri->y[i]][tetri->x[i]] == '.')
-			{
-				i++;
-				if (i == 4)
-					return (1);
-			}
-			x++;
+	while (i < 4){
+		printf("y: %d x: %d\n", t->y[i], t->x[i]);
+		i++;
+	}
+}
+
+int		check_tetri(char **map, t_tetri *tetri, int x, int y, int size)
+{
+	int i;
+	int j;
+	int t_x;
+	int t_y;
+
+	t_x = 0;
+	t_y = 0;
+	i = 0;
+	j = 0;
+//	print_tetri(tetri);
+//	printf("In Check Tetri\nsize: %d\n", size);
+//	printf("Y Passed: %d\nX Passed: %d\n", y, x);
+	while (j < 4) {
+			
+		t_x = tetri->x[i];
+		t_y = tetri->y[i];
+		
+		if (t_y + y > size - 1){
+			return (0);
 		}
-		y++;
+		else if (map[y + t_y][x + t_x] != '.' && map[y + t_y][x + t_x]) {
+			return (0);
+		}
+		else if (map[y + t_y][x + t_x] == '.' && map[y + t_y][x + t_x]) {
+//			printf("Valid Spot!\n");
+			i++;
+		}
+
+		if (i == 4){
+//			printf("Returning 1\n");
+			return (1);
+		}
+		j++;		
 	}
 	return (0);
 }
