@@ -28,6 +28,11 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 	fd = open(argv[1], O_RDONLY);
+	if (fd == -1) 
+	{
+		ft_putendl("error");
+		return (0);
+	}
 	stock = stock_str(fd);
 	if (!check_str(stock))
 	{
@@ -35,7 +40,7 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 	close(fd);
-	tetri = stock_tetri(stock);
+	tetri = extract_tetriminos(stock);
 	solve(tetri);
 	free(tetri);
 	free(stock);

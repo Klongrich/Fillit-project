@@ -13,34 +13,41 @@
 #include "libft.h"
 #include "fillit.h"
 
-int		check_link(char *stock, int j)
+int		validate_tetrimino(char *characters_read, int tetrimino_start)
 {
 	int count;
-	int i;
+	int j;
 
-	i = 0;
+	j = 0;
 	count = 0;
-	while (i + j < 20 + j)
+	while (j + tetrimino_start < 20 + tetrimino_start)
 	{
-		if (stock[i + j] == '#')
+		if (characters_read[j + tetrimino_start] == '#')
 		{
-			if ((i + j + 1) < (20 + j) && stock[i + j + 1] == '#')
+			//Check if the next character is within bounds && if it is a '#'
+			if ((j + tetrimino_start + 1) < (20 + tetrimino_start) && characters_read[j + tetrimino_start + 1] == '#')
 				count++;
-			if ((i + j - 1) >= (0 + j) && stock[i + j - 1] == '#')
+
+			//Check if the previous chacters is within bounds && if that character is a '#'
+			if ((j + tetrimino_start - 1) >= (0 + tetrimino_start) && characters_read[j + tetrimino_start - 1] == '#')
 				count++;
-			if ((i + j + 5) < (20 + j) && stock[i + j + 5] == '#')
+			
+			//Check if the next y-value is within bounds && if that value is a "#'
+			if ((j + tetrimino_start + 5) < (20 + tetrimino_start) && characters_read[j + tetrimino_start + 5] == '#')
 				count++;
-			if ((i + j - 5) >= (0 + j) && stock[i + j - 5] == '#')
+			
+			//Check if the pervious y-value is within bounds && if that value is a '#'
+			if ((j + tetrimino_start - 5) >= (0 + tetrimino_start) && characters_read[j + tetrimino_start - 5] == '#')
 				count++;
 		}
-		i++;
+		j++;
 	}
 	if (count == 6 || count == 8)
 		return (1);
 	return (0);
 }
 
-int		count_valid_char(char *stock, int j)
+int		count_valid_characters(char *characters_read, int j)
 {
 	int dash;
 	int dot;
@@ -51,13 +58,13 @@ int		count_valid_char(char *stock, int j)
 	dash = 0;
 	dot = 0;
 	newline = 0;
-	while (i + j < 20 + j && stock[i + j] != '\0')
+	while (i + j < 20 + j && characters_read[i + j] != '\0')
 	{
-		if (stock[i + j] == '#')
+		if (characters_read[i + j] == '#')
 			dash++;
-		if (stock[i + j] == '.')
+		if (characters_read[i + j] == '.')
 			dot++;
-		if (stock[i + j] == '\n')
+		if (characters_read[i + j] == '\n')
 			newline++;
 		i++;
 	}
@@ -66,22 +73,25 @@ int		count_valid_char(char *stock, int j)
 	return (0);
 }
 
-int		check_str(char *stock)
+int		check_str(char *characters_read)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	while (stock[i + j] != '\0')
+	while (characters_read[i + j] != '\0')
 	{
-		if (!(check_link(stock, j) && count_valid_char(stock, j)))
+		if (!(validate_tetrimino(characters_read, j) && count_valid_characters(characters_read, j)))
 			return (0);
+		//Sets I to 19 to check the end of the tetrimino
 		i = 19;
-		if (stock[i + j] == '\n' && stock[i + j + 1] == '\0')
+		//If the end of the file is reached return (1)
+		if (characters_read[i + j] == '\n' && characters_read[i + j + 1] == '\0')
 			return (1);
-		if (stock[i + j] == '\n' && stock[i + j + 1] == '\n'
-				&& (stock[i + j + 2] == '.' || stock[i + j + 2] == '#'))
+		//If there is another properly formatted tetrimino then increment j by 21 to start on the first character of the next tetrimino.
+		if (characters_read[i + j] == '\n' && characters_read[i + j + 1] == '\n'
+				&& (characters_read[i + j + 2] == '.' || characters_read[i + j + 2] == '#'))
 			j += 21;
 		else
 			return (0);
