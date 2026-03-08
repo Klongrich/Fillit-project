@@ -28,13 +28,6 @@ void 	insert_tetri2(char **map, t_tetri *tetri, int y, int x){
 
 }
 
-
-// return a boolen, not a char ** instead to let the function know 
-// if it has all pecies placed. Also do not do integer comparisons
-// in the while loop conditons use the terti_map that was passed
-// to check if it is a null pointer or not at the row as well as row and column
-// index. Do not pass size  instead pass the row and columon positions 
-// of the tetri_map or board.
 char	**algo(char **tetri_map, t_tetri *tetri, int size)
 {
 	int		x;
@@ -57,10 +50,6 @@ char	**algo(char **tetri_map, t_tetri *tetri, int size)
 				if((map = algo(tetri_map,tetri->next, size))) {
 					return (tetri_map);
 				}
-				//change remove_tetri to a void function that use the board
-				//already allocated. Also update remove_tetri to not loop
-				//through the entire board, instead pass the column and row
-				//instead of the size
 				tetri_map = remove_tetri(tetri_map, tetri, size);
 			}
 			x++;
@@ -70,19 +59,37 @@ char	**algo(char **tetri_map, t_tetri *tetri, int size)
 	return (NULL);
 }
 
+int smallest_board(t_tetri *tetri){
+
+	int amount_of_tetri;
+	int size;
+	int j;
+	t_tetri *tmp;
+	
+	amount_of_tetri = 0;
+	j = 2;
+	tmp = tetri;
+	while (tmp->next) {
+		amount_of_tetri++;
+		tmp = tmp->next;
+	}
+
+	size = amount_of_tetri * 4;
+	while (size > (j * j)) {
+		j++;
+	} 
+	return (j);
+}
+
 void	solve(t_tetri *tetri)
 {
 	char	**result;
 	char	**tetri_map;
 	int		size;
 
-	size = 2;
+	size = smallest_board(tetri);
 	tetri_map = NULL;
-
-	//get the smallest possible borad
 	tetri_map = tetri_map_new(tetri_map, size);
-
-	//get rid of  result, only pass the board that was allocated at first
 	result = NULL;
 	while (!(result = algo(tetri_map, tetri, size)))
 	{
