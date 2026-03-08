@@ -115,10 +115,10 @@ int		check_tetri(char **map, t_tetri *tetri, int x, int y, int size)
 	j = 0;
 	while (j < 4) {
 			
-		t_x = tetri->x[i];
-		t_y = tetri->y[i];
+		t_x = tetri->x[j];
+		t_y = tetri->y[j];
 		
-		if (t_y + y > size - 1){
+		if (t_y + y > size - 1 || t_x > size - 1){
 			return (0);
 		}
 		else if (map[y + t_y][x + t_x] != '.' && map[y + t_y][x + t_x]) {

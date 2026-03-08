@@ -32,7 +32,7 @@ char				**tetri_map_new(char **map, int size);
 char				**tetri_map_dot(char **map, int size);
 void				print_map(char **map);
 char				**remove_tetri(char **map, t_tetri *tetri, int size);
-char				**insert_tetri(char **map, t_tetri *tetri, int y, int x);
+void				insert_tetri(char **map, t_tetri *tetri, int y, int x);
 int					check_link(char *stock, int j);
 int					count_valid_char(char *stock, int j);
 int					check_str(char *stock);

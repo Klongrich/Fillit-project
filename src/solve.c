@@ -13,20 +13,6 @@
 #include "fillit.h"
 #include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
-
-
-
-void 	insert_tetri2(char **map, t_tetri *tetri, int y, int x){
-	int i;
-
-	i = 0;
-	while (i < 4) {
-		map[y + tetri->y[i]][x + tetri->x[i]] = tetri->c;
-		i++;
-	}
-
-}
 
 char	**algo(char **tetri_map, t_tetri *tetri, int size)
 {
@@ -45,7 +31,7 @@ char	**algo(char **tetri_map, t_tetri *tetri, int size)
 		{
 			if (check_tetri(tetri_map, tetri, x ,y, size)) {
 				
-				insert_tetri2(tetri_map, tetri, y,x);
+				insert_tetri(tetri_map, tetri, y,x);
 
 				if((map = algo(tetri_map,tetri->next, size))) {
 					return (tetri_map);
