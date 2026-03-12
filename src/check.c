@@ -104,33 +104,25 @@ int		check_str(char *characters_read)
 
 int		check_tetri(char **map, t_tetri *tetri, int x, int y, int size)
 {
-	int i;
 	int j;
 	int t_x;
 	int t_y;
 
 	t_x = 0;
 	t_y = 0;
-	i = 0;
 	j = 0;
 	while (j < 4) {
 			
 		t_x = tetri->x[j];
 		t_y = tetri->y[j];
 		
-		if (t_y + y > size - 1 || t_x > size - 1){
+		if (t_y + y > size - 1){
 			return (0);
 		}
-		else if (map[y + t_y][x + t_x] != '.' && map[y + t_y][x + t_x]) {
+		else if (map[y + t_y][x + t_x] != '.') {
 			return (0);
-		}
-		else if (map[y + t_y][x + t_x] == '.' && map[y + t_y][x + t_x]) {
-			i++;
 		}
 		j++;		
-	}
-	if (i == 4) {
-		return (1);
-	}
-	return (0);
+	} 
+	return (1);
 }
